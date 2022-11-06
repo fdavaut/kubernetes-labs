@@ -1,7 +1,0 @@
-
-
-
-#### **Rappel**
-**kubectl** est un outil en ligne de commande, fournit par Kubernetes pour communiquer avec le plan de contrôle d'un cluster Kubernetes (API-Server)
-**kubectl** se réfère à un fichier nommé `config` dans le répertoire personnel de l'utilisateur `$HOME/.kube/config` dans lequel se trouve les utilisateurs, les contexts, les clusters auxquels l'utilisateur peut se connecter.
-_Vous pouvez spécifier d'autres fichiers kubeconfig en définissant la variable d'environnement `$KUBECONFIG` ou en définissant l'option `--kubeconfig` ._

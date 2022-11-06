@@ -1,5 +1,12 @@
 # Installation de Minikube
 
+Un cluster Kubernetes peut être déployé sur des machines physiques ou virtuelles. 
+Pour commencer à développer Kubernetes ou test vos déploiement en environnement de Test/Dev, Minikube est l'une des solutions les plus répandues de nos jours. 
+Minikube est une implémentation Kubernetes légère qui crée une VM sur votre machine locale et déploie un cluster simple contenant un seul nœud. 
+Il est disponible pour les systèmes Linux, macOS et Windows.
+Il possède une commande CLI (`minikube`) pour des opérations de démarrage de base pour travailler avec votre cluster : démarrage, arrêt, suppression, ajout de fonctionnalités... 
+Notre Lab va consister à le mettre en place.
+
 ## Environnement Lab
 
 Accédez au répertoire `0 - Lab Setup` en ligne de commande.
@@ -142,4 +149,22 @@ lister les ressources du nouveau cluster Minikube
 
 ```bash
 kubectl get nodes
+```
+![Screenshot 2022-11-06 at 02 07 59](https://user-images.githubusercontent.com/59444079/200149425-e95099ee-43bc-43de-82bf-82cb14f7d8ba.png)
+
+## Pour aller plus loin
+
+Par défaut, seuls quelques fonctionnalités (`addons`) sont activés lors de l'installation de minikube, pour voir les addons de minikube:
+
+```bash
+minikube addons list
+```
+
+Si nous voulions activer et accéder au tableau de bord de Kubernetes
+
+```bash
+minikube dashboard
+```
+```bash
+
 ```
