@@ -76,7 +76,7 @@ Il a été déployé dans le namespaces par défaut.
 
 </details>
 
-Créer un namespace `k8s-lab` et lancez un Pod du nom de `tools`, `image:busybox` exécutant la commande `sleep 1000`
+De la manière **Impérative**, Créer un namespace `k8s-lab` et lancez un Pod du nom de `tools`, `image:busybox` exécutant la commande `sleep 1000`
 
 <details><summary>Correction</summary>
 
@@ -140,5 +140,50 @@ Soit en affichant les pods avec l'option `-o wide`
 ```bash
 kubectl get pods -o wide
 ```
+
+</details>
+
+De la manière **Déclarative** lancez un Pod du nom de `tools2`, `image:busybox` exécutant la commande `sleep 1500` dans le namespace `k8s-lab`
+
+<details><summary>Correction</summary>
+
+Il fautecrire le dichier YAML suivant :
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: tools2
+  name: tools2
+  namespace: k8s-lab
+spec:
+  containers:
+  - args:
+    - sleep
+    - "1500"
+    image: busybox
+    name: tools2
+    resources: {}
+```
+
+Une astuce pour avoir ce fichier YAML est d'exécuter la commande impérative correspondante avec l'option `--dry-run=client -o yaml`
+
+```bash
+kubectl run tools --image busybox -n k8s-lab --dry-run=client -o yaml -- sleep 1500 > pod-tools2.yml
+```
+
+```bash
+kubectl apply -f pod-tools2.yml 
+```
+
+```bash
+kubectl get pods -n k8s-lab
+                                                                                                                                                                                                                ─╯
+NAME     READY   STATUS             RESTARTS      AGE
+tools    0/1     CrashLoopBackOff   4 (86s ago)   3m2s
+tools2   1/1     Running            0             18s
+```
+
 
 </details>
