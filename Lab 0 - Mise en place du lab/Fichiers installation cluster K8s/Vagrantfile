@@ -2,13 +2,13 @@
 IMAGE_NAME = "bento/ubuntu-20.04"
 
 # The configurations for masters nodes
-K8S_NAME = "k8s-lab1"
+K8S_NAME = "k8s-lab"
 MASTERS_NUM = 1
 MASTERS_CPU = 2 
 MASTERS_MEM = 2048
 
 # The configurations for Workers nodes
-WORKERS_NUM = 2
+WORKERS_NUM = 3
 WORKERS_CPU = 2
 WORKERS_MEM = 2048
 

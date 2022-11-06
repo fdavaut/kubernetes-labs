@@ -25,25 +25,17 @@ Vagrant.configure("2") do |config|
     end
   
     # Defining a New VM named docker-server and assign to the variable named docker 
-    config.vm.define "k8s-server" do |k8s| 
+    config.vm.define "minikube-server" do |minikube| 
   
       # Set the hostname of the VM 
-      k8s.vm.hostname = "k8s-server.lab.local" 
+      minikube.vm.hostname = "minikube-server.lab.local" 
       
       # Setting the box (OS) for the Virtual machine, we use ubuntu 
-      k8s.vm.box = "bento/ubuntu-20.04" 
-      
-      # Port forwarding configuration as per our requirement 
-      # web.vm.network "forwarded_port", guest: "80", host: "8080" 
-      
+      minikube.vm.box = "bento/ubuntu-20.04" 
+
       # Shared forlder Settings between host and guest VM 
-      k8s.vm.synced_folder "./instructions_and_materials", "/lab_data", :mount_options => ["dmode=775", "fmode=664"]
-      
-      # Provision the k8s installation with Ansible, Execute the playbook 
-      # k8s.vm.provision "ansible" do |ansible| 
-        # The path to ansible playbook 
-        # ansible.playbook="k8s-playbook.yaml"
-      #end
+      minikube.vm.synced_folder "./instructions_and_materials", "/lab_data", :mount_options => ["dmode=775", "fmode=664"]
+
     end
   
   end

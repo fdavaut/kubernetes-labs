@@ -1,0 +1,1 @@
+kubeadm join 192.168.56.11:6443 --token hlnuwv.nzxkesr2maux0w4f --discovery-token-ca-cert-hash sha256:319daadd612eca82fa7c6b64cd1010f6d3e8ba50e5de1093a1e4a7cae779cefa 
