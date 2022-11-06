@@ -50,6 +50,17 @@ kubectl api-resources | grep -i RoleBinding
 
 </details>
 
+Decriver la structure des objets `Pod` , `Deployment`, `PersistentVolume`
+
+<details><summary>Correction</summary>
+
+```bash
+kubectl explain pods
+kubectl explain pods --recursive
+```
+
+</details>
+
 ## Contexts des utilisateurs
 
 Lister les contexts de votre environnement kubernetes. Combien de context avez vous ? quel est le context par défaut ?
