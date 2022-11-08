@@ -88,6 +88,7 @@ kubectl run tools --image busybox -n k8s-lab -- sleep 1000
 </details>
 
 Tentez de créer un pod du même nom avec une image de votre choix dans le même namespace précédent `k8s-lab`
+
 Arrivez-vous à le faire ? Si non pourquoi ?
 
 <details><summary>Correction</summary>
@@ -108,6 +109,7 @@ kubectl describe pods tools -n k8s-lab
 </details>
 
 Quels sont les IP des Pods précédents ?
+
 Accédez à l'intérieur du Pod `tools` et emmettez une requete vers le Pod `Webserver`: un Ping, curl...
 
 <details><summary>Correction</summary>
@@ -126,7 +128,7 @@ Si le Ping passe, pourquoi selon vous c'est passé et si non pour quoi ? est-ce 
 
 <details><summary>Correction</summary>
 
-Non, les namespaces ne limitent pas les communications
+Non, les namespaces ne limitent pas les communications réseaux.
 
 </details>
 
@@ -143,11 +145,13 @@ kubectl get pods -o wide
 
 </details>
 
+## Approche Déclarative
+
 De la manière **Déclarative** lancez un Pod du nom de `tools2`, `image:busybox` exécutant la commande `sleep 1500` dans le namespace `k8s-lab`
 
 <details><summary>Correction</summary>
 
-Il fautecrire le dichier YAML suivant :
+Il faut ecrire le dichier YAML suivant :
 
 ```yaml
 apiVersion: v1
@@ -184,6 +188,5 @@ NAME     READY   STATUS             RESTARTS      AGE
 tools    0/1     CrashLoopBackOff   4 (86s ago)   3m2s
 tools2   1/1     Running            0             18s
 ```
-
 
 </details>

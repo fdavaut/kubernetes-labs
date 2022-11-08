@@ -55,7 +55,7 @@ Démarrer un Proxy de l'API Serveur et faite à nouveau un curl sur le port loca
 <details><summary>Correction</summary>
 
 ```bash
-kubectl proxy --port=8064
+kubectl proxy --port=8064 &
     Starting to serve on 127.0.0.1:8064 
 ```
 
