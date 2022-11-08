@@ -182,96 +182,32 @@ Faites un describe
 
 Vous avez mis à jour votre application à la version 2. Vous souhaitez mettre à jour le déploiement => Changez l'image pour la mettre à la dernière version disponible `nginx:1.22.1` ou `<votre login Docker>/lab1-simpleapp:2.0`
 Que constatez-vous dans les Events du déployement frontend ?
+Que constatez-vous au niveau des ReplicaSet ?
+
+<details><summary>Correction</summary>
+
+Modifier le manifest YAML en mettant la nouvelle version de l'image 
+
+ou bien
+
+```bash
+ kubectl set image deployment frontend nginx=nginx:1.22.1 
+```
+
+On constate qu'il a supprimer tous les anciens Pods et remplacer par les nouveaux
+
+On constate au niveau des replicaSet que l'ancien est vide et un nouveau est créé
+
+</details>
+
+Afficher l'historique du rollout
 
 <details><summary>Correction</summary>
 
 ```bash
-kubectl get service
+kubectl rollout history deployment frontend
 ```
 
 </details>
 
 
-## Accès au déploiement frontend
-
-* Comment allez-vous accéder à ce déploiement ?
-
-<details><summary>Correction</summary>
-
-Un déploiement dans Kubernetes n'a du sens que pour le Control plane. Derrière le déploiement en réalité c'est des Pods/Conteneurs qui seront tangibles aux quels les utilisateurs devront accéder. Donc de ce fait pour accéder au déploiement créé, il suffira en fait d'accéder aux Pods/conteneurs individuels créés, et donc par leurs IPs. avec l'option `-o wide` ou le Describe vous pouvez obtenur leurs IPs.
-Bien évidemment, c'est fastidieux car il faut manuellement les chercher.
-Pour rendre facile l'accès de ces 3 Pods/conteneurs créés nous aurons besoin d'un object Service qui va configurer une sorte de loadbalancer entre les 3 pods.
-Désormais donc, au lieu de chercher les iP des 3 conteneurs, il nous suffira d'accéder au endpoint du service et le tour est joué.
-* Créer un service du nom de `frontend-http` de type ClusterIP qui expose le Déploiement `frontend` au port 80
-```bash
-kubectl expose deployment frontend --port=80 --target-port=80 --name=frontend-http
-```
-
-</details>
-
-* listez les services
-<details><summary>Correction</summary>
-
-```bash
-kubectl get service
-```
-
-</details>
-
-* tester l'accès à votre déploiement avec un Pod que vous aller nommer `client` dont l'image est `curlimages/curl`
-<details><summary>Correction</summary>
-
-```bash
-kubectl run client --rm  -it --image curlimages/curl -- sh
-$ curl http://frontend-http
-```
-
-```bash
-vagrant@k8s-master-1:~$ kubectl get all -n kube-system
-NAME                                           READY   STATUS    RESTARTS       AGE
-pod/calico-kube-controllers-566654d67d-lrgpn   1/1     Running   0              20h
-pod/calico-node-gk6qg                          1/1     Running   5 (20h ago)    40d
-pod/calico-node-ljmmc                          1/1     Running   6 (20h ago)    40d
-pod/calico-node-qg7h7                          1/1     Running   5 (20h ago)    40d
-pod/coredns-565d847f94-6lfhq                   1/1     Running   6 (20h ago)    40d
-pod/coredns-565d847f94-bnqlv                   1/1     Running   6 (20h ago)    40d
-pod/etcd-k8s-master-1                          1/1     Running   11 (20h ago)   40d
-pod/kube-apiserver-k8s-master-1                1/1     Running   17 (20h ago)   40d
-pod/kube-controller-manager-k8s-master-1       1/1     Running   2 (20h ago)    28d
-pod/kube-proxy-g9s6l                           1/1     Running   5 (20h ago)    40d
-pod/kube-proxy-m29bk                           1/1     Running   5 (20h ago)    40d
-pod/kube-proxy-z7kn6                           1/1     Running   6 (20h ago)    40d
-pod/kube-scheduler-k8s-master-1                1/1     Running   0              177m
-
-# Dans notre environnement Kubernetes, il y'a un deploiment du nom de coredns qui implemente un DNS dans le Kubernetes. 
-# Quand une ressources Service est créé avec son IP l'entré DNS correspondante est ajouté et Kube-proxy se charche dattribuer
-# à chaque Pod créés le fichier /ets/resolv.conf. et c'est de cette manière que à partir de n'importe quel Pod on peut accéder à un service.
-
-NAME               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
-service/kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   40d
-
-NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
-daemonset.apps/calico-node   3         3         3       3            3           kubernetes.io/os=linux   40d
-daemonset.apps/kube-proxy    3         3         3       3            3           kubernetes.io/os=linux   40d
-
-NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/calico-kube-controllers   1/1     1            1           40d
-deployment.apps/coredns                   2/2     2            2           40d
-
-NAME                                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/calico-kube-controllers-566654d67d   1         1         1       40d
-replicaset.apps/coredns-565d847f94                   2         2         2       40d
-vagrant@k8s-master-1:~$ kubectl run client --rm  -it --image curlimages/curl -- sh
-If you don't see a command prompt, try pressing enter.
-/ $ cat /etc/resolv.conf
-search default.svc.cluster.local svc.cluster.local cluster.local
-nameserver 10.96.0.10
-options ndots:5
-/ $
-
-```
-
-Vous remarquerez que nous avons maintenant juste besoin du nom du service qui joue d'office le role de nom DNS de mon déploiement.
-Lorsque le service est créé, Kube-proxy, Kubelet... mettent tout en oeuvre pour enregister un nom de domain du service et dans le conteneur/Pod le fichier /etc/resolv.conf indique le service DNs à contacter pour la résolution.
-
-</details>
