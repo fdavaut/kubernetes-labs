@@ -193,6 +193,13 @@ $ kubectl apply -f custom-web-service.yml
 service/custom-web created
 ```
 
+```bash
+$ kubectl run client --rm  -it --image curlimages/curl -- sh
+If you don't see a command prompt, try pressing enter.
+/ $ curl http://custom-web
+/ $
+```
+
 </details>
 
 

@@ -20,10 +20,10 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
 
     (1..MASTERS_NUM).each do |i|      
-        config.vm.define "k8s-master-#{i}" do |master|
+        config.vm.define "k8s-lab-master-#{i}" do |master|
             master.vm.box = IMAGE_NAME
-            master.vm.network "private_network", ip: "#{IP_BASE}#{i + 10}"
-            master.vm.hostname = "k8s-master-#{i}"
+            master.vm.network "private_network", ip: "#{IP_BASE}#{i + 30}"
+            master.vm.hostname = "k8s-lab-master-#{i}"
             master.vm.synced_folder "./instructions_and_materials", "/lab_data", :mount_options => ["dmode=775", "fmode=664"]
             master.vm.provider "virtualbox" do |v|
                 v.memory = MASTERS_MEM
@@ -33,10 +33,10 @@ Vagrant.configure("2") do |config|
     end
 
     (1..WORKERS_NUM).each do |j|
-        config.vm.define "k8s-worker-#{j}" do |node|
+        config.vm.define "k8s-lab-worker-#{j}" do |node|
             node.vm.box = IMAGE_NAME
-            node.vm.network "private_network", ip: "#{IP_BASE}#{j + 10 + MASTERS_NUM}"
-            node.vm.hostname = "k8s-worker-#{j}"
+            node.vm.network "private_network", ip: "#{IP_BASE}#{j + 30 + MASTERS_NUM}"
+            node.vm.hostname = "k8s-lab-worker-#{j}"
             node.vm.synced_folder "./instructions_and_materials", "/lab_data", :mount_options => ["dmode=775", "fmode=664"]
             node.vm.provider "virtualbox" do |v|
                 v.memory = WORKERS_MEM

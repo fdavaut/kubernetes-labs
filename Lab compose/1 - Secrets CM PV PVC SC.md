@@ -34,7 +34,7 @@ metadata:
   name: mysql-pass
 ```
 
-Si vous exécuté cette commande par exemple vous verrai le password en clair. Au temps vous dire que les type Secret ne sont pas véritablement un moyen de sécuriser son mot de passe.
+Si vous exécuté cette commande par exemple vous verrez le password en clair. Au temps vous dire que les type Secret ne sont pas véritablement un moyen de sécuriser son mot de passe.
 
 ```bash
 echo "TW9uUGFzc3Jvb3QwMQ==" | base64 --decode
@@ -47,6 +47,10 @@ $ kubectl -n mynamespace get secrets mysql-pass \
     -o 'jsonpath={.data.passwd}' | base64 -d
 MonPassroot01
 ```
+</details>
+
+
+
 
 ```yaml
 apiVersion: v1
