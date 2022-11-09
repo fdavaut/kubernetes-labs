@@ -115,7 +115,7 @@ Accédez à l'intérieur du Pod `tools` et emmettez une requete vers le Pod `Web
 <details><summary>Correction</summary>
 
 ```bash
-kubectl exec -it -n k8s-lab tool -- sh
+kubectl exec -it -n k8s-lab tools -- sh
 / # ping 192.168.118.29
 PING 192.168.118.29 (192.168.118.29): 56 data bytes
 64 bytes from 192.168.118.29: seq=0 ttl=63 time=0.268 ms
