@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: test
   labels:
     app: web-server
     tier: frontend
@@ -16,7 +17,8 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+      - name: busy
+        image: busybox
+        args:
+          - sleep
+          - "100"
