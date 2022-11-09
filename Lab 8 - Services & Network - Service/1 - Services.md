@@ -124,7 +124,7 @@ metadata:
   name: web-service
 spec:
   selector:
-    tier: frontend
+    app: frontend
   type: NodePort
   ports:
     - protocol: TCP
@@ -162,7 +162,7 @@ Créer un manifest YAML du service du nom de `lb-service` de Type LoabBalancer q
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-service
+  name: lb-service
 spec:
   selector:
     tier: frontend
