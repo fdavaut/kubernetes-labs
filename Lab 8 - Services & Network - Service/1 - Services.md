@@ -47,6 +47,14 @@ $ curl http://frontend-http
 
 </details>
 
+Kubectl permet de faire une sorte de tunneling pour accéder à un endpoint interne au cluster (Ex: IP de Pod, Service de type ClusterIP...)
+Ex :
+```bash
+kubectl port-forward service/web-service 8503:8080
+
+Sur le navigateur de votre Client faite un `http://localhost:8503`
+```
+
 Comment expliquez vous le mécanisme de connexion entre le Pod `client` et les Pods du deployment `frontend` ?
 
 <details><summary>Correction</summary>
