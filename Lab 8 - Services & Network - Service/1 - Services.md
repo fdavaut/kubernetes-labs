@@ -50,7 +50,7 @@ $ curl http://frontend-http
 Kubectl permet de faire une [sorte de tunneling/forwarding des requêtes](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) pour accéder à un endpoint interne au cluster (Ex: IP de Pod, Service de type ClusterIP...)
 Ex :
 ```bash
-kubectl port-forward service/web-service 8503:8080
+kubectl port-forward service/frontend-http 8503:80
 
 Sur le navigateur de votre Client faite un `http://localhost:8503`
 ```

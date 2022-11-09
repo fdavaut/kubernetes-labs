@@ -52,6 +52,8 @@ MonPassroot01
 
 
 
+<details><summary>Correction</summary>
+
 ```yaml
 apiVersion: v1
 data:

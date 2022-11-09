@@ -374,7 +374,7 @@ spec:
         configMap:
           defaultMode: 0640
           name: filebeat-config
-      - name: varlibdockercontainers    # On monte un Directory du Node /var/lib/docker/containers dans le conteneur en suivant le même chemin (voir plus haut) => On imagine que le Node écrit constament dans données la dedans (CRE y met les logs des conteneur)
+      - name: varlibdockercontainers    # On monte un Directory du Node /var/lib/docker/containers dans le conteneur en suivant le même chemin (voir plus haut) => On imagine que le Node écrit constament dans données la dedans (CRE y met les logs des conteneurs par defaut)
         hostPath:
           path: /var/lib/docker/containers
       - name: varlog                   # Pareil également On monte un Directory du Node /var/log dans le conteneur en suivant le même chemin (voir plus haut)
